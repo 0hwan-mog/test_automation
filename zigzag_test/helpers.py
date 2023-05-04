@@ -32,7 +32,7 @@ def pass_onboarding_push_bottombanner(driver):
         complate_button = WebDriverWait(driver,1).until(
             EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView")))
         complate_button.click()
-        print("온보딩 페이지 선택완료 버튼 탭")
+        print("온보딩 페이지 건너뛰기 버튼 탭")
         el2 = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button[2]")))
         #건너뛰기 토스트 팝업 확인 버튼 클릭
