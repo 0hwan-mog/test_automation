@@ -19,13 +19,13 @@ from selenium.common.exceptions import TimeoutException
 # 앱 최초실행시 알림 팝업 처리 함수
 def handling_popup(driver):
     try:
+        sleep(1)
         print("알림 허용 팝업 노출 여부 확인중")
         # 팝업 확인 버튼을 찾아 클릭
         confirm_button = driver.find_element(
             by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_deny_button")
         confirm_button.click()
         print("알림 설정 팝업 닫기 버튼 탭")
-        sleep(2)
     except NoSuchElementException:
         # 확인 버튼이 없으면 팝업이 없다고 가정하고 그냥 넘어감
         pass
@@ -36,8 +36,8 @@ def pass_onboarding_push_bottombanner(driver):
     try:
         print("온보딩 페이지 노출 여부 확인중")
         # 온보딩 페이지 처리
-        complate_button = driver.find_element(
-            by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView")
+        complate_button = WebDriverWait(driver,1).until(
+            EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView")))
         complate_button.click()
         print("온보딩 페이지 선택완료 버튼 탭")
         el2 = WebDriverWait(driver, 5).until(
@@ -45,29 +45,30 @@ def pass_onboarding_push_bottombanner(driver):
         #건너뛰기 토스트 팝업 확인 버튼 클릭
         print("건너뛰기 토스트 팝업 확인 버튼 클릭")
         el2.click()
-    except NoSuchElementException:
-        # 선택완료 버튼이 없으면 온보딩페이지 노출되지 않았다고가정하고 그냥 넘어감
+        sleep(1)
+    except TimeoutException:
+        print("온보딩 페이지 노출되지 않음")
         pass
 
     try:
-        print("푸시알림 수신 팝업 노출 여부 확인중")
+        print("푸시알림 수신 동의 토스트 노출 여부 확인중")
+        sleep(1.5)
         # 푸시 알림 수신 팝업 처리
-        confirm_button = driver.find_element(
-            by=AppiumBy.ACCESSIBILITY_ID, value="안 받을래요/앱 푸시 알람 허용하지 않음")
+        confirm_button = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="안 받을래요/앱 푸시 알람 허용하지 않음")
         confirm_button.click()
         print("푸시 알림 허용하지 않음 버튼 탭")
+        sleep(2)
     except NoSuchElementException:
-        # 버튼이 없으면 팝업이 없다고 가정하고 그냥 넘어감
         pass
 
     try:
         print("이벤트 토스트 노출 여부 확인중")
         # 이벤트 토스트 닫기 처리
-        el1 = driver.find_element(
-            by=AppiumBy.ID, value="com.croquis.zigzag.alpha:id/close")
+        el1 = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((AppiumBy.ID, "com.croquis.zigzag.alpha:id/close")))
         print("이벤트 토스트 닫기 처리")
         el1.click()
-    except NoSuchElementException:
+    except TimeoutException:
         pass
 
     try:
@@ -77,7 +78,7 @@ def pass_onboarding_push_bottombanner(driver):
         print("하단 배너 x버튼 탭")
         el4.click()
     except TimeoutException:
-        print("회원가입 유도 배너를 찾을 수 없습니다.")
+        pass
 
 
 
@@ -110,8 +111,8 @@ def setup_teardown():
 
     driver = webdriver.Remote(
         'http://localhost:4723/wd/hub', capabilities)
-    sleep(3)
     handling_popup(driver)
+    sleep(1)
     pass_onboarding_push_bottombanner(driver)
     # 테스트 함수에서 사용할 값을 픽스쳐함수에서 반환한다
     yield driver
