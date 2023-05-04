@@ -17,7 +17,7 @@ def handle_popup(driver):
                 by=AppiumBy.XPATH, value="/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.Button[2]")
 
             confirm_button.click()
-            print("접근성 설정 팝업 닫기 버튼 탭")
+            print("알림 설정 팝업 닫기 버튼 탭")
 
             sleep(2)
         except NoSuchElementException:
@@ -43,7 +43,7 @@ def setup_teardown():
             'appPackage': 'com.google.android.youtube',
             'appActivity': 'com.google.android.apps.youtube.app.WatchWhileActivity',
             'automationName': 'UiAutomator2',
-            'noReset': True
+            'noReset': False
         }
 
     driver = webdriver.Remote(
@@ -53,14 +53,14 @@ def setup_teardown():
 
     today_info = datetime.now()
     today = "{0}월 {1}일".format(today_info.month, today_info.day)
-    print("setUp")
+    print("\n setUp")
     #테스트 함수에서 사용할 값을 픽스쳐함수에서 반환한다
     yield driver,today
 
     driver.press_keycode(AndroidKey.BACK)
     sleep(2)
     driver.quit()
-    print("tearDown")
+    print("\n tearDown")
 
 #공통된 동작을 함수로 작성해두고, 테스트 함수에서는 검색어만 변경하여 사용함으로써 테스트 코드를 효율적으로 작성한다.
 def search_and_play_video(driver, today, search_keyword):
@@ -86,7 +86,7 @@ def search_and_play_video(driver, today, search_keyword):
         actions.perform()
         print("5초간 재생")
         sleep(5)
-        print("테스트 케이스 1번 실행 종료")
+        
 
 def test_search_and_play_video1(setup_teardown):
     driver,today = setup_teardown 
@@ -94,10 +94,10 @@ def test_search_and_play_video1(setup_teardown):
     # 테스트 함수에서 픽스쳐를 사용할 때는 괄호 없이 픽스쳐의 이름만 인자로 전달하고, pytest가 픽스쳐를 관리하도록 하는 것이 좋다
     print("테스트 케이스 1번 실행중")
     search_and_play_video(driver,today,"오늘의 뉴스")
-    print("테스트 케이스 1번 실행중")
+    print("테스트 케이스 1번 실행 종료")
 
 def test_search_and_play_video2(setup_teardown):
     driver,today = setup_teardown
     print("테스트 케이스 2번 실행중")
-    search_and_play_video(driver,today,"오늘의 속보")
-    print("테스트 케이스 2번 실행중")
+    search_and_play_video(driver,today,"최신 음악")
+    print("테스트 케이스 2번 실행 종료")
