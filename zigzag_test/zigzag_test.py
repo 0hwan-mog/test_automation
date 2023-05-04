@@ -9,10 +9,10 @@ from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 import pytest
+import os
+import subprocess
 
 # 앱 최초실행시 알림 팝업 처리 함수
-
-
 def handling_popup(driver):
     try:
         # 팝업 확인 버튼을 찾아 클릭
@@ -24,8 +24,7 @@ def handling_popup(driver):
     except NoSuchElementException:
         # 확인 버튼이 없으면 팝업이 없다고 가정하고 그냥 넘어감
         pass
-
-
+#앱 실행 후 표시되는 온보딩 페이지, 푸시 알림 수신동의 팝업, 토스트 및 배너 처리 함수
 def pass_onboarding_push_bottombanner(driver):
     try:
         # 온보딩 페이지 처리
@@ -44,10 +43,11 @@ def pass_onboarding_push_bottombanner(driver):
             by=AppiumBy.ACCESSIBILITY_ID, value="안 받을래요/앱 푸시 알람 허용하지 않음")
         confirm_button.click()
         print("푸시 알림 허용하지 않음 버튼 탭")
-        sleep(2)
+        sleep(0.5)
     except NoSuchElementException:
         # 버튼이 없으면 팝업이 없다고 가정하고 그냥 넘어감
         pass
+
     try:
         # 이벤트 토스트 닫기 처리
         sleep(1)
@@ -55,11 +55,11 @@ def pass_onboarding_push_bottombanner(driver):
             by=AppiumBy.ID, value="com.croquis.zigzag.alpha:id/close")
         print("이벤트 토스트 닫기 처리")
         el1.click()
-        sleep(1)
+        sleep(0.5)
     except NoSuchElementException:
         pass
     try:
-        sleep(3)
+        sleep(2)
         el4 = driver.find_element(
             by=AppiumBy.ID, value="com.croquis.zigzag.alpha:id/btJoinEventBannerClose")
         print("하단 배너 x버튼 탭")
@@ -71,6 +71,17 @@ def pass_onboarding_push_bottombanner(driver):
 
 @pytest.fixture(scope='function', autouse=True)
 def setup_teardown():
+    #apk 설치 경로를 apk_path에 저장
+    apk_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'zigzag_alpha.apk')
+   # 앱이 설치되어 있는지 확인
+    installed_packages = subprocess.check_output(['adb', 'shell', 'pm', 'list', 'packages']).decode('utf-8')
+    app_installed = 'package:com.croquis.zigzag.alpha' in installed_packages
+
+    if not app_installed:
+        # 앱이 설치되어 있지 않으면 설치합니다.
+        subprocess.run(['adb', 'install', apk_path])
+
+
     capabilities = {
         'platformName': 'Android',
         'platformVersion': '13.0',
