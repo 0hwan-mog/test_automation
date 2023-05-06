@@ -19,15 +19,15 @@ def handling_popup(driver):
             by=AppiumBy.ID, value="com.android.permissioncontroller:id/permission_deny_button")
         confirm_button.click()
         print("알림 설정 팝업 닫기 버튼 탭")
+        sleep(1)
     except NoSuchElementException:
         # 확인 버튼이 없으면 팝업이 없다고 가정하고 그냥 넘어감
         pass
 # 앱 실행 후 표시되는 온보딩 페이지, 푸시 알림 수신동의 팝업, 토스트 및 배너 처리 함수
 
-
 def pass_onboarding_push_bottombanner(driver):
     try:
-        print("온보딩 페이지 노출 여부 확인중")
+        print("온보딩 페이지 노출 여부 확인중(ABT 실험군)")
         # 온보딩 페이지 처리
         complate_button = WebDriverWait(driver,1).until(
             EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView")))
@@ -40,7 +40,16 @@ def pass_onboarding_push_bottombanner(driver):
         el2.click()
         sleep(1)
     except TimeoutException:
-        print("온보딩 페이지 노출되지 않음")
+        pass
+    try:
+        print("온보딩 페이지 노출 여부 확인중(ABT 대조군)")
+        # 온보딩 페이지 처리
+        complate_button = WebDriverWait(driver,2).until(
+            EC.presence_of_element_located((AppiumBy.ID, "com.croquis.zigzag.alpha:id/tvSelectionComplete")))
+        complate_button.click()
+        print("온보딩 페이지 선택완료 버튼 탭")
+        sleep(1)
+    except TimeoutException:
         pass
 
     try:
@@ -61,6 +70,7 @@ def pass_onboarding_push_bottombanner(driver):
             EC.presence_of_element_located((AppiumBy.ID, "com.croquis.zigzag.alpha:id/close")))
         print("이벤트 토스트 닫기 처리")
         el1.click()
+        sleep(1)
     except TimeoutException:
         pass
 
@@ -70,6 +80,7 @@ def pass_onboarding_push_bottombanner(driver):
             EC.presence_of_element_located((AppiumBy.ID, "com.croquis.zigzag.alpha:id/btJoinEventBannerClose")))
         print("하단 배너 x버튼 탭")
         el4.click()
+        sleep(1)
     except TimeoutException:
         pass
 
