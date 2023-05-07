@@ -11,7 +11,7 @@ from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from helpers import handling_popup, pass_onboarding_push_bottombanner, setup_teardown
+from helpers import setup_teardown
 
 def test_zigzag_alpha(setup_teardown):
     driver = setup_teardown
