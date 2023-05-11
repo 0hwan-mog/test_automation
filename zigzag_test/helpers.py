@@ -26,24 +26,8 @@ def handling_popup(driver):
 
 # 앱 실행 후 표시되는 온보딩 페이지, 푸시 알림 수신동의 팝업, 토스트 및 배너 처리 함수
 def pass_onboarding_push_bottombanner(driver):
-    # try:
-    #     print("온보딩 페이지 노출 여부 확인중(ABT 실험군)")
-    #     # 온보딩 페이지 처리
-    #     complate_button = WebDriverWait(driver,1).until(
-    #         EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout/android.view.ViewGroup/androidx.appcompat.widget.LinearLayoutCompat/android.widget.TextView")))
-    #     complate_button.click()
-    #     print("온보딩 페이지 건너뛰기 버튼 탭")
-    #     el2 = WebDriverWait(driver, 5).until(
-    #         EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button[2]")))
-    #     #건너뛰기 토스트 팝업 확인 버튼 클릭
-    #     print("건너뛰기 토스트 팝업 확인 버튼 클릭")
-    #     el2.click()
-    #     sleep(1)
-    # except TimeoutException:
-    #     pass
-
     try:
-        print("온보딩 페이지 노출 여부 확인중(ABT 대조군)")
+        print("온보딩 페이지 노출 여부 확인중")
         # 온보딩 페이지 처리
         complate_button = WebDriverWait(driver,2).until(
             EC.presence_of_element_located((AppiumBy.ID, "com.croquis.zigzag.alpha:id/tvSelectionComplete")))
