@@ -41,12 +41,11 @@ def test_zigzag_alpha(setup_teardown):
             EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.ImageView")))
     print("검색결과 목록중 첫번째 상품 탭")
     first_product.click()
-
-    my_product = WebDriverWait(driver, 30).until(
+    sleep(1)
+    my_product = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((AppiumBy.XPATH, "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[5]/android.view.View/android.view.View[2]/android.widget.Image")))
     print("찜 버튼 탭")
     my_product.click()
-    
     sleep(1)
     print("찜 탭 진입(딥링크 사용)")
     deep_link_url = "zigzag:///my_goods"

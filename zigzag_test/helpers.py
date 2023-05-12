@@ -46,7 +46,7 @@ def pass_onboarding_push_bottombanner(driver):
         print("푸시알림 수신 동의 토스트 노출 여부 확인중")
         sleep(1.5)
         # 푸시 알림 수신 팝업 처리
-        confirm_button = driver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value="안 받을래요/앱 푸시 알람 허용하지 않음")
+        confirm_button = driver.find_element(by=AppiumBy.ANDROID_UIAUTOMATOR, value='text("안 받을래요")')
         confirm_button.click()
         print("푸시 알림 허용하지 않음 버튼 탭")
         sleep(2)
