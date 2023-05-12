@@ -29,14 +29,18 @@ def pass_onboarding_push_bottombanner(driver):
     try:
         print("온보딩 페이지 노출 여부 확인중")
         # 온보딩 페이지 처리
-        complate_button = WebDriverWait(driver,2).until(
-            EC.presence_of_element_located((AppiumBy.ID, "com.croquis.zigzag.alpha:id/tvSelectionComplete")))
+        complate_button = WebDriverWait(driver,1).until(
+            EC.presence_of_element_located((AppiumBy.ANDROID_UIAUTOMATOR, 'text("건너뛰기")')))
         complate_button.click()
-        print("온보딩 페이지 선택완료 버튼 탭")
+        print("온보딩 페이지 건너뛰기 버튼 탭")
+        el2 = WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((AppiumBy.ANDROID_UIAUTOMATOR, 'text("확인")')))
+        #건너뛰기 토스트 팝업 확인 버튼 클릭
+        print("건너뛰기 토스트 팝업 확인 버튼 클릭")
+        el2.click()
         sleep(1)
     except TimeoutException:
         pass
-
     
     try:
         print("푸시알림 수신 동의 토스트 노출 여부 확인중")
