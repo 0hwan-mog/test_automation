@@ -64,16 +64,6 @@ def pass_onboarding_push_bottombanner(driver):
     except TimeoutException:
         pass
 
-    # try:
-    #     print("회원가입 유도 배너 노출 여부 확인중")
-    #     el4 = WebDriverWait(driver, 5).until(
-    #         EC.presence_of_element_located((AppiumBy.ID, "com.croquis.zigzag.alpha:id/btJoinEventBannerClose")))
-    #     print("하단 배너 x버튼 탭")
-    #     el4.click()
-    #     sleep(1)
-    # except TimeoutException:
-    #     pass
-
 @pytest.fixture(scope='function', autouse=True)
 def setup_teardown():
     print("테스트 시작전 초기화")
