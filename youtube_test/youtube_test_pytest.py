@@ -41,7 +41,7 @@ def setup_teardown():
             'appPackage': 'com.google.android.youtube',
             'appActivity': 'com.google.android.apps.youtube.app.WatchWhileActivity',
             'automationName': 'UiAutomator2',
-            'noReset': False
+            'noReset': True
         }
 
     driver = webdriver.Remote(

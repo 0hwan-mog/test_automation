@@ -64,7 +64,7 @@ def pass_onboarding_push_bottombanner(driver):
     except TimeoutException:
         pass
 
-@pytest.fixture(scope='function', autouse=True)
+@pytest.fixture(scope='function', autouse=True) #scope 옵션 설정값 function, class, module, package, session
 def setup_teardown():
     print("테스트 시작전 초기화")
     # apk 설치 경로를 apk_path에 저장
