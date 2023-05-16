@@ -83,8 +83,6 @@ def setup_teardown():
 
     capabilities = {
         'platformName': 'Android',
-        'platformVersion': '13.0',
-        'deviceName': 'emulator-5554',
         'appPackage': 'com.croquis.zigzag.alpha',
         'appActivity': 'com.croquis.zigzag.presentation.ui.splash.SplashActivity',
         'automationName': 'UiAutomator2',
