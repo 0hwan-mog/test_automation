@@ -17,8 +17,6 @@ class BaseTestAppium(unittest.TestCase):
     def setUp(self):
         capabilities = {
             'platformName': 'Android',
-            'platformVersion': '13.0',
-            'deviceName': 'emulator-5554',
             'appPackage': 'com.google.android.youtube',
             'appActivity': 'com.google.android.apps.youtube.app.WatchWhileActivity',
             'automationName': 'UiAutomator2',
